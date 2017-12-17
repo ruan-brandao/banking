@@ -5,4 +5,13 @@ class User < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
 
   has_one :account
+
+  after_create :create_account
+
+  private
+
+  def create_account
+    self.account = Account.create(user: self, balance: 0)
+    true
+  end
 end
