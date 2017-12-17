@@ -6,4 +6,11 @@ RSpec.describe User, type: :model do
 
     expect(association.macro).to eq(:has_one)
   end
+
+  it 'creates a new for a newly created user' do
+    user = described_class.create(email: 'foo@example.com', password: '12345678')
+
+    expect(user.account).to be_present
+    expect(user.account.balance).to eq(0)
+  end
 end
