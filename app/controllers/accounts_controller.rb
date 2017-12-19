@@ -1,4 +1,3 @@
-require 'irb'
 class AccountsController < ApplicationController
   include AccountsHelper
   before_action :authenticate_user!
