@@ -29,7 +29,7 @@ class AccountsController < ApplicationController
 
   def find_account
     @account = current_user.account
-    unless @account.present?
+    if @account.blank?
       render json: {errors: ['Account does not exist.']}, status: :not_found
     end
   end
