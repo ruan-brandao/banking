@@ -31,7 +31,7 @@ RSpec.describe 'Account management', type: :request do
 
     it 'shows an error message when account does not exist' do
       user.account.destroy
-      params = {destination_account_id: account.id, amount: 1}
+      params = {destination_account_id: destination.id, amount: 1}
 
       post '/accounts/transfer', params: params, headers: user.create_new_auth_token, as: :json
 
@@ -49,7 +49,7 @@ RSpec.describe 'Account management', type: :request do
     end
 
     it 'fails when amount is not a number' do
-      params = {destination_account_id: account.id, amount: 'foo'}
+      params = {destination_account_id: destination.id, amount: 'foo'}
 
       post '/accounts/transfer', params: params, headers: user.create_new_auth_token, as: :json
 
@@ -57,7 +57,27 @@ RSpec.describe 'Account management', type: :request do
       expect(decode(response.body)['errors']).to eq(['The informed amount is not a number'])
     end
 
-    it 'fails when amount is greater than current balance'
-    it 'debits amount from account and credits amount to destination account'
+    it 'fails when amount is greater than current balance' do
+      params = {destination_account_id: destination.id, amount: 999999}
+
+      post '/accounts/transfer', params: params, headers: user.create_new_auth_token, as: :json
+
+      expect(response).to have_http_status(:bad_request)
+      expect(decode(response.body)['errors']).to eq(['The current balance is not enough to make the transfer'])
+    end
+
+    it 'debits amount from account and credits amount to destination account' do
+      account.update_attributes(balance: 5000)
+      params = {destination_account_id: destination.id, amount: 2500}
+
+      expect {
+        post '/accounts/transfer', params: params, headers: user.create_new_auth_token, as: :json
+      }.to change {
+        account.reload.balance
+      }.by(-2500).and change {
+        destination.reload.balance
+      }.by(2500)
+      expect(response).to have_http_status(:ok)
+    end
   end
 end
