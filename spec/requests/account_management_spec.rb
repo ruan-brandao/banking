@@ -39,6 +39,15 @@ RSpec.describe 'Account management', type: :request do
       expect(decode(response.body)['errors']).to eq(['Account does not exist.'])
     end
 
+    it 'fails when destination account does not exist' do
+      params = {destination_account_id: 6543, amount: 1}
+
+      post '/accounts/transfer', params: params, headers: user.create_new_auth_token
+
+      expect(response).to have_http_status(:not_found)
+      expect(decode(response.body)['errors']).to eq(["Couldn't find Account with 'id'=6543"])
+    end
+
     it 'fails when amount is not a number'
     it 'fails when amount is greater than current balance'
     it 'debits amount from account and credits amount to destination account'
