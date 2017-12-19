@@ -63,7 +63,9 @@ RSpec.describe 'Account management', type: :request do
       post '/accounts/transfer', params: params, headers: user.create_new_auth_token, as: :json
 
       expect(response).to have_http_status(:bad_request)
-      expect(decode(response.body)['errors']).to eq(['The current balance is not enough to make the transfer'])
+      expect(decode(response.body)['errors']).to(
+        eq(['The current balance is not enough to make the transfer'])
+      )
     end
 
     it 'debits amount from account and credits amount to destination account' do
