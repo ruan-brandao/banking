@@ -3,22 +3,44 @@ require 'rails_helper'
 RSpec.describe 'Account management', type: :request do
   delegate :decode, to: ActiveSupport::JSON
 
-  it "shows the balance of logged user's account" do
-    user = FactoryBot.create(:user)
+  describe 'GET /accounts/balance' do
+    it "shows the balance of logged user's account" do
+      user = FactoryBot.create(:user)
 
-    get '/accounts/balance', headers: user.create_new_auth_token
+      get '/accounts/balance', headers: user.create_new_auth_token
 
-    expect(response).to have_http_status(:ok)
-    expect(decode(response.body)['balance']).to eq('R$ 0,00')
+      expect(response).to have_http_status(:ok)
+      expect(decode(response.body)['balance']).to eq('R$ 0,00')
+    end
+
+    it 'shows an error message when account does not exist' do
+      user = FactoryBot.create(:user)
+      user.account.destroy
+
+      get '/accounts/balance', headers: user.create_new_auth_token
+
+      expect(response).to have_http_status(:not_found)
+      expect(decode(response.body)['errors']).to eq(['Account does not exist.'])
+    end
   end
 
-  it 'shows an error message when account does not exist' do
-    user = FactoryBot.create(:user)
-    user.account.destroy
+  describe 'POST /accounts/transfer' do
+    let(:user) { FactoryBot.create(:user) }
+    let(:account) { user.account }
+    let(:destination) { FactoryBot.create(:account) }
 
-    get '/accounts/balance', headers: user.create_new_auth_token
+    it 'shows an error message when account does not exist' do
+      user.account.destroy
+      params = {destination_account_id: account.id, amount: 1}
 
-    expect(response).to have_http_status(:not_found)
-    expect(decode(response.body)['errors']).to eq(['Account does not exist.'])
+      post '/accounts/transfer', params: params, headers: user.create_new_auth_token
+
+      expect(response).to have_http_status(:not_found)
+      expect(decode(response.body)['errors']).to eq(['Account does not exist.'])
+    end
+
+    it 'fails when amount is not a number'
+    it 'fails when amount is greater than current balance'
+    it 'debits amount from account and credits amount to destination account'
   end
 end
