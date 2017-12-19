@@ -24,4 +24,30 @@ RSpec.describe Account, type: :model do
     expect(zero_balance).to be_valid
     expect(positive_balance).to be_valid
   end
+
+  describe '#transfer' do
+    it 'fails when account balance is less than the specified amount' do
+      account = FactoryBot.build(:account, balance: 10)
+      destination = FactoryBot.build(:account)
+
+       expect {
+        account.transfer(15, destination)
+      }.not_to change {
+        [account.balance, destination.balance]
+      }
+    end
+
+    it 'subtracts amount from account balance and add it to destination balance' do
+      account = FactoryBot.build(:account, balance: 10)
+      destination = FactoryBot.build(:account, balance: 5)
+
+      expect{
+        account.transfer(7, destination)
+      }.to change {
+        account.balance
+      }.by(-7).and change {
+        destination.balance
+      }.by(7)
+    end
+  end
 end
