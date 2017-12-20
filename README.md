@@ -53,7 +53,7 @@ check the [database seeds](https://github.com/ruan-brandao/banking/blob/master/d
 
 ### Authentication
 
-This project uses the [Devise Token Auth](https://github.com/lynndylanhurley/devise_token_auth#configuration-cont)
+This project uses the [Devise Token Auth](https://github.com/lynndylanhurley/devise_token_auth)
 gem to implement API authentication. The main actions are the following.
 
 #### Create an Account
