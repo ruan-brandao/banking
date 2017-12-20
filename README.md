@@ -27,4 +27,8 @@ If everything goes OK, you can now run the project.
 2. Open [http://localhost:3000](http://localhost:3000) at your web browser
 
 ## Running the tests
-Run `$ bin/rspec` to run the tests.
+The project uses [RSpec](http://rspec.info/) for the tests. You can run the tests with the command: `$ bin/rspec`
+
+## Contributing
+
+In order to contribute with the project, please check our [contribution guidelines](https://github.com/ruan-brandao/banking/blob/master/CONTRIBUTING.md).
