@@ -8,7 +8,7 @@ Simple implementation of a RESTFul API to manage banking accounts.
 ## Table of Contents
 
 * [Dependencies](#dependencies)
-* [Setup Project](#project-setup)
+* [Project Setup](#project-setup)
 * [Running the Project](#running-the-project)
 * [Usage](#usage)
   * [Authentication](#authentication)
