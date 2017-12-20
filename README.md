@@ -15,15 +15,15 @@ This project has the following dependencies:
 To run the project, do the following steps:
 
 1. Install the dependencies listed above
-2. `$ git clone <REPOSITORY_URL> banking` - Clone the repository
-3. `$ cd banking` - Go into the project directory
-4. `$ bundle install` - Install the project's gems
-5. `$ bin/rails db:setup` - Setup the project's database
+2. `git clone <REPOSITORY_URL> banking` - Clone the repository
+3. `cd banking` - Go into the project directory
+4. `bundle install` - Install the project's gems
+5. `bin/rails db:setup` - Setup the project's database
 
 If everything goes OK, you can now run the project.
 
 ## Running the project
-1. Run `$ bin/rails server` on the project directory
+1. Run `bin/rails server` on the project directory
 2. Open [http://localhost:3000](http://localhost:3000) at your web browser
 
 ## Usage
@@ -160,6 +160,7 @@ Status: 200 OK
     "success": true
 }
 ```
+___
 
 ### Get account balance
 
@@ -192,6 +193,8 @@ Status: 404 Not Found
   ]
 }
 ```
+
+___
 
 ### Transfer money
 
@@ -251,7 +254,7 @@ Status: 400 Bad Request
 ```
 
 ## Running the tests
-The project uses [RSpec](http://rspec.info/) for the tests. You can run the tests with the command: `$ bin/rspec`
+The project uses [RSpec](http://rspec.info/) for the tests. You can run the tests with the command: `bin/rspec`
 
 ## Contributing
 
