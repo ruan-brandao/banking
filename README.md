@@ -5,13 +5,28 @@
 
 Simple implementation of a RESTFul API to manage banking accounts.
 
+## Table of Contents
+
+* [Dependencies](#dependencies)
+* [Setup Project](#project-setup)
+* [Running the Project](#running-the-project)
+* [Usage](#usage)
+  * [Authentication](#authentication)
+    * [Create an Account](#create-an-account)
+    * [Sign In](#sign-in)
+    * [Sign Out](#sign-out)
+  * [Get Account Balance](#get-account-balance)
+  * [Transfer Money](#transfer-money)
+* [Running The Tests](#running-the-tests)
+* [Contributing](#contributing)
+
 ## Dependencies
 This project has the following dependencies:
 
 * Ruby 2.4
 * Rails 5.1.4
 
-## Setup the project
+## Project Setup
 To run the project, do the following steps:
 
 1. Install the dependencies listed above
@@ -22,7 +37,7 @@ To run the project, do the following steps:
 
 If everything goes OK, you can now run the project.
 
-## Running the project
+## Running the Project
 1. Run `bin/rails server` on the project directory
 2. Open [http://localhost:3000](http://localhost:3000) at your web browser
 
@@ -41,7 +56,7 @@ check the [database seeds](https://github.com/ruan-brandao/banking/blob/master/d
 This project uses the [Devise Token Auth](https://github.com/lynndylanhurley/devise_token_auth#configuration-cont)
 gem to implement API authentication. The main actions are the following.
 
-#### Create an account
+#### Create an Account
 
 This action will create a new user account.
 
@@ -142,7 +157,7 @@ The custom headers received in this request are the following:
 
 These three headers must be sent as request headers with the received values on authenticated requests.
 
-#### Sign out
+#### Sign Out
 
 This action invalidates the authenticated user token.
 
@@ -162,7 +177,7 @@ Status: 200 OK
 ```
 ___
 
-### Get account balance
+### Get Account Balance
 
 This action will return the current balance of the authenticated user's account
 
@@ -196,7 +211,7 @@ Status: 404 Not Found
 
 ___
 
-### Transfer money
+### Transfer Money
 
 This action will transfer the specified amount of money from the authenticated
 user's account to the specified destination account.
@@ -253,7 +268,7 @@ Status: 400 Bad Request
 }
 ```
 
-## Running the tests
+## Running The Tests
 The project uses [RSpec](http://rspec.info/) for the tests. You can run the tests with the command: `bin/rspec`
 
 ## Contributing
