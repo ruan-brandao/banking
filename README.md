@@ -3,25 +3,28 @@
 [![Ebert](https://ebertapp.io/github/ruan-brandao/banking.svg)](https://ebertapp.io/github/ruan-brandao/banking)
 [![Build Status](https://semaphoreci.com/api/v1/ruan-brandao/banking/branches/master/badge.svg)](https://semaphoreci.com/ruan-brandao/banking)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Simple implementation of a RESTFul API to manage banking accounts
 
-Things you may want to cover:
+## Dependencies
+This project has the following dependencies:
 
-* Ruby version
+* Ruby 2.4
+* Rails 5.1.4
 
-* System dependencies
+## Setup the project
+To run the project, do the following steps:
 
-* Configuration
+1. Install the dependencies listed above
+2. `$ git clone <REPOSITORY_URL> banking` - Clone the repository
+3. `$ cd banking` - Go into the project directory
+4. `$ bundle install` - Install the project's gems
+5. `$ bin/rake db:migrate` - Setup the project's database
 
-* Database creation
+If everything goes OK, you can now run the project.
 
-* Database initialization
+## Running the project
+1. Run `$ bin/rails server` on the project directory
+2. Open [http://localhost:3000](http://localhost:3000) at your web browser
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Running the tests
+Run `$ bin/rspec` to run the tests.
