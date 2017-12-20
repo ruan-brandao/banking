@@ -18,7 +18,7 @@ To run the project, do the following steps:
 2. `$ git clone <REPOSITORY_URL> banking` - Clone the repository
 3. `$ cd banking` - Go into the project directory
 4. `$ bundle install` - Install the project's gems
-5. `$ bin/rake db:migrate` - Setup the project's database
+5. `$ bin/rake db:setup` - Setup the project's database
 
 If everything goes OK, you can now run the project.
 
