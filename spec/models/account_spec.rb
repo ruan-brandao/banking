@@ -7,6 +7,12 @@ RSpec.describe Account, type: :model do
     expect(association.macro).to eq(:belongs_to)
   end
 
+  it 'has many movements' do
+    association = described_class.reflect_on_association(:movements)
+
+    expect(association.macro).to eq(:has_many)
+  end
+
   it 'validates presence of balance' do
     account = FactoryBot.build(:account)
     account_without_balance = FactoryBot.build(:account, balance: nil)
