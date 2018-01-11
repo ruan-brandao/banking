@@ -32,17 +32,6 @@ RSpec.describe Account, type: :model do
   end
 
   describe '#transfer' do
-    it 'fails when account balance is less than the specified amount' do
-      account = FactoryBot.build(:account, balance: 10)
-      destination = FactoryBot.build(:account)
-
-       expect {
-        account.transfer(15, destination)
-      }.not_to change {
-        [account.balance, destination.balance]
-      }
-    end
-
     it 'subtracts amount from account balance and add it to destination balance' do
       account = FactoryBot.build(:account, balance: 10)
       destination = FactoryBot.build(:account, balance: 5)
@@ -54,6 +43,41 @@ RSpec.describe Account, type: :model do
       }.by(-7).and change {
         destination.balance
       }.by(7)
+    end
+
+    it 'creates a movement for source account with negative amount' do
+      account = FactoryBot.build(:account, balance: 10)
+      destination = FactoryBot.build(:account)
+
+      expect {
+        account.transfer(5, destination)
+      }.to change {
+        account.movements.count
+      }.by(1)
+      expect(account.movements.first.amount).to eq(-5)
+    end
+
+    it 'creates a movement for destination account with positive amount' do
+      account = FactoryBot.build(:account, balance: 10)
+      destination = FactoryBot.build(:account)
+
+      expect {
+        account.transfer(5, destination)
+      }.to change {
+        destination.movements.count
+      }.by(1)
+      expect(destination.movements.first.amount).to eq(5)
+    end
+
+    it 'fails when account balance is less than the specified amount' do
+      account = FactoryBot.build(:account, balance: 10)
+      destination = FactoryBot.build(:account)
+
+       expect {
+        account.transfer(15, destination)
+      }.not_to change {
+        [account.balance, destination.balance]
+      }
     end
 
     it 'fails when amount is less than zero' do

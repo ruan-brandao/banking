@@ -11,8 +11,10 @@ class Account < ApplicationRecord
     Account.transaction do
       self.balance -= amount
       self.save
+      self.movements.create(amount: -amount)
       destination.balance += amount
       destination.save
+      destination.movements.create(amount: amount)
     end
     true
   end
