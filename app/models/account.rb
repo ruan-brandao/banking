@@ -5,7 +5,7 @@ class Account < ApplicationRecord
   validates :balance, presence: true
 
   def transfer(amount, destination)
-    return false if self.balance < amount
+    return false if amount < 0 || self.balance < amount
 
     Account.transaction do
       self.balance -= amount
