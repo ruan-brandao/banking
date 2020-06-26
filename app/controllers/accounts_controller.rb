@@ -24,6 +24,16 @@ class AccountsController < ApplicationController
     end
   end
 
+  def statement
+    result = []
+
+    @account.movements.each do |movement|
+      result << {amount: formatted_currency(movement.amount), created_at: movement.created_at}
+    end
+
+    render(json: result)
+  end
+
   private
 
   def find_account

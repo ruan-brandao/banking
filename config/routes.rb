@@ -3,4 +3,5 @@ Rails.application.routes.draw do
 
   get 'accounts/balance'
   post 'accounts/transfer'
+  get 'accounts/statement'
 end
